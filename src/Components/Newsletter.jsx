@@ -1,5 +1,6 @@
 import SendIcon from "@mui/icons-material/Send";
 import styled from "styled-components";
+import emailjs from "@emailjs/browser";
 
 const Container = styled.div`
   height: 60vh;
@@ -34,7 +35,6 @@ const Input = styled.input`
   flex: 8;
   padding-left: 20px;
   border: 1px solid lightgray;
-
 `;
 
 const Button = styled.button`
@@ -43,17 +43,45 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
-
 `;
 
 const Newsletter = () => {
+  let emailChange = "";
+  let templateParams = {
+    name: "New member",
+    email: emailChange,
+  };
+  const sendEmail = () => {
+    emailjs
+      .send(
+        "service_cbmysy6",
+        "template_d9wlml7",
+        templateParams,
+        "roQT0mz0CCaYdRonV"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
+  };
+
   return (
     <Container>
       <Title>Newsletter</Title>
       <Desc>Get timely updates from your favorite products.</Desc>
       <InputContainer>
-        <Input placeholder="Your email" />
-        <Button>
+        <Input
+          placeholder="Your email"
+          type="email"
+          onChange={(e) => {
+            emailChange = e.target.value;
+          }}
+        />
+        <Button onClick={sendEmail}>
           <SendIcon />
         </Button>
       </InputContainer>
