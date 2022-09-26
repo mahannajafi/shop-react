@@ -69,7 +69,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Mahan</Logo>
+          <Logo>Mafi</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
